@@ -15,8 +15,5 @@
         "content-script.js"
       ]
     }
-  ],
-  "action": {
-    "default_popup": "ui.html"
-  }
+  ]
 }
