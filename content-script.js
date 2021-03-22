@@ -32,7 +32,6 @@ function injectVolumeSlider(target) {
 
   slider.addEventListener("input", function () {
     document.querySelector("audio").volume = slider.value / 100;
-    volumeWrapper.innerHTML = slider.value;
     console.log("Set volume to: " + slider.value);
   });
 }
