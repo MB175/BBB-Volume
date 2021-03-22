@@ -10,4 +10,6 @@ BBB-Volume is a Chrome / FireFox -Extension that adds a simple volume slider to 
 
 Right after installing the Extensions you should be able to control your Master volume.
 
+<img src=".assets/bw.png">
+
 
