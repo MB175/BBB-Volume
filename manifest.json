@@ -1,0 +1,22 @@
+{
+  "name": "BBB-Volume",
+  "version": "1.0",
+  "description": "Chnage the Volume of a BBB-Session",
+  "manifest_version": 3,
+  "permissions": [
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/html5client/join?sessionToken*"
+      ],
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "ui.html"
+  }
+}
