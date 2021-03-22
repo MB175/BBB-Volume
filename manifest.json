@@ -1,7 +1,7 @@
 {
   "name": "BBB-Volume",
   "version": "1.0",
-  "description": "Chnage the Volume of a BBB-Session",
+  "description": "Chnage the Volume of a BBB-Session by Mb175",
   "manifest_version": 3,
   "permissions": [
     "tabs"
