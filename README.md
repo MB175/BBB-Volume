@@ -1,6 +1,6 @@
 # BBB-Volume
 
-# [FireFox-Addon](https://addons.mozilla.org/de/firefox/addon/bbb-volume/) <img src="https://user-media-prod-cdn.itsre-sumo.mozilla.net/uploads/products/2020-04-14-08-36-13-8dda6f.png" style="height: 30px;">
+# [FireFox-Addon](https://addons.mozilla.org/de/firefox/addon/bbb-volume/) <img src="https://user-media-prod-cdn.itsre-sumo.mozilla.net/uploads/products/2020-04-14-08-36-13-8dda6f.png" style="height: 30px; width: auto" href="https://addons.mozilla.org/de/firefox/addon/bbb-volume/">
 
 ### Coming soon into Chrome Extensions Store !
 
