@@ -2,10 +2,7 @@
   "name": "BBB-Volume",
   "version": "1.0",
   "description": "Change the volume of your BBB-Session by Mb175",
-  "manifest_version": 3,
-  "permissions": [
-    "tabs"
-  ],
+  "manifest_version": 2,
   "icons": { "16": "icons/16.png",
     "48": "icons/48.png",
    "128": "icons/128.png" },
