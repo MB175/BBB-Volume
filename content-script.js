@@ -1,7 +1,8 @@
-var isSpeakingContainer = "/html/body/div/main/section/div[1]/header/div/div[2]/div/div"
+var isSpeakingContainer =
+  "/html/body/div/main/section/div[1]/header/div/div[2]/div/div";
 
 var dropdownPostfix = "]/div/div[2]/div/ul";
-var namePostfix = "]/div/div[1]/div/div[2]/span/span"
+var namePostfix = "]/div/div[1]/div/div[2]/span/span";
 var prefix =
   "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div/div[";
 
@@ -19,12 +20,11 @@ var observer = new MutationObserver(function (mutations) {
     var menuBarDiv = getElementByXpath(
       "/html/body/div/main/section/div[1]/section[2]/div/div[2]"
     );
-   var container = getElementByXpath(
+    var container = getElementByXpath(
       "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div"
     );
     var speakerContainer = getElementByXpath(isSpeakingContainer);
-    observeSpeakers(speakerContainer)
-
+    observeSpeakers(speakerContainer);
 
     console.log(container.childNodes.length);
 
@@ -42,15 +42,14 @@ observer.observe(document.body, {
 });
 
 function observeSpeakers(container) {
-  var observerIsSpeaking = new MutationObserver(function (mutations){
-      console.log("talking detected")
-      let talkingUser = mutations[1].addedNodes[0].innerText;
-      if(talkingUser != undefined) {
-        setVolumeBasedOnUser(talkingUser)
-      }
-      
+  var observerIsSpeaking = new MutationObserver(function (mutations) {
+    console.log("talking detected");
+    let talkingUser = mutations[1].addedNodes[0].innerText;
+    if (talkingUser != undefined) {
+      setVolumeBasedOnUser(talkingUser);
+    }
   });
-  
+
   observerIsSpeaking.observe(container, {
     childList: true,
     subtree: true,
@@ -71,9 +70,8 @@ function observerUserList(container) {
 }
 
 function setVolumeBasedOnUser(name) {
-
-  let volume = volumeList[name]
-  if(volumeList == undefined) return
+  let volume = volumeList[name];
+  if (volumeList == undefined) return;
   console.log("Set " + name + " volume to: " + volume);
   document.querySelector("audio").volume = volume / 100;
 }
@@ -98,7 +96,6 @@ function addSlider(slider, name) {
 }
 
 function injectVolumeSlidersDropDown(target) {
-
   for (i = 1; i <= target.childNodes.length; i++) {
     let query = prefix + i + dropdownPostfix;
     let el = getElementByXpath(query);
@@ -108,8 +105,8 @@ function injectVolumeSlidersDropDown(target) {
     }
 
     let nameQuery = prefix + i + namePostfix;
-    let nameSpan = getElementByXpath(nameQuery)
-    let name = nameSpan.innerHTML.replace(/\&nbsp;/g, '')
+    let nameSpan = getElementByXpath(nameQuery);
+    let name = nameSpan.innerHTML.replace(/\&nbsp;/g, "");
 
     var slider = document.createElement("INPUT");
     slider.min = 0;
