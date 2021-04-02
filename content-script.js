@@ -1,6 +1,7 @@
 console.log("BBB identified!");
 
 var container;
+var sliderList =  [];
 
 var observer = new MutationObserver(function (mutations) {
   if (
@@ -46,12 +47,22 @@ function observerUserList(container) {
 function checkIfSliderIsPresent(node) {
   let presnet = false;
   node.childNodes.forEach(function (item) {
-    if (item.id === "userVolumeSlider") {
+    if (item.className === "userVolumeSlider") {
       presnet = true;
     }
   });
   return presnet;
 }
+
+
+function addSlider(slider) {
+  slider.addEventListener("input", function () {
+    console.log("Set UserVolume to: " + slider.value);
+  });
+
+  sliderList.push(slider)
+}
+
 
 function injectVolumeSlidersDropDown(target) {
   var dorpodwnPostfix = "]/div/div[2]/div/ul";
@@ -71,8 +82,12 @@ function injectVolumeSlidersDropDown(target) {
     slider.max = 100;
     slider.value = 100;
     slider.type = "range";
+
+    addSlider(slider)
+
+
     var liElement = document.createElement("LI");
-    liElement.id = "userVolumeSlider";
+    liElement.className = "userVolumeSlider";
     liElement.appendChild(slider);
 
     el.appendChild(liElement);
