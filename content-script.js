@@ -1,14 +1,14 @@
 var isSpeakingContainer = "/html/body/div/main/section/div[1]/header/div/div[2]/div/div"
 
-var dorpodwnPostfix = "]/div/div[2]/div/ul";
+var dropdownPostfix = "]/div/div[2]/div/ul";
 var namePostfix = "]/div/div[1]/div/div[2]/span/span"
 var prefix =
   "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div/div[";
 
 console.log("BBB identified!");
 
-var container;
 var sliderList = [];
+var volumeList = [];
 
 var observer = new MutationObserver(function (mutations) {
   if (
@@ -19,9 +19,12 @@ var observer = new MutationObserver(function (mutations) {
     var menuBarDiv = getElementByXpath(
       "/html/body/div/main/section/div[1]/section[2]/div/div[2]"
     );
-    container = getElementByXpath(
+   var container = getElementByXpath(
       "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div"
     );
+    var speakerContainer = getElementByXpath(isSpeakingContainer);
+    observeSpeakers(speakerContainer)
+
 
     console.log(container.childNodes.length);
 
@@ -37,6 +40,18 @@ observer.observe(document.body, {
   childList: true,
   subtree: true,
 });
+
+function observeSpeakers(container) {
+  var observerIsSpeaking = new MutationObserver(function (mutations){
+      console.log("talking detected")
+      console.log(volumeList)
+  });
+  
+  observerIsSpeaking.observe(container, {
+    childList: true,
+    subtree: true,
+  });
+}
 
 function observerUserList(container) {
   var userListOberserver = new MutationObserver(function (mutations) {
@@ -64,15 +79,16 @@ function checkIfSliderIsPresent(node) {
 function addSlider(slider, name) {
   slider.addEventListener("input", function () {
     console.log("Set " + name + " volume to: " + slider.value);
+    volumeList[name] = slider.value;
   });
 
-  sliderList.push(slider);
+  sliderList[name] = slider;
 }
 
 function injectVolumeSlidersDropDown(target) {
 
   for (i = 1; i <= target.childNodes.length; i++) {
-    let query = prefix + i + dorpodwnPostfix;
+    let query = prefix + i + dropdownPostfix;
     let el = getElementByXpath(query);
 
     if (checkIfSliderIsPresent(el)) {
