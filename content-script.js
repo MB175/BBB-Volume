@@ -44,7 +44,11 @@ observer.observe(document.body, {
 function observeSpeakers(container) {
   var observerIsSpeaking = new MutationObserver(function (mutations){
       console.log("talking detected")
-      console.log(volumeList)
+      let talkingUser = mutations[1].addedNodes[0].innerText;
+      if(talkingUser != undefined) {
+        setVolumeBasedOnUser(talkingUser)
+      }
+      
   });
   
   observerIsSpeaking.observe(container, {
@@ -64,6 +68,14 @@ function observerUserList(container) {
     childList: true,
     subtree: true,
   });
+}
+
+function setVolumeBasedOnUser(name) {
+
+  let volume = volumeList[name]
+  if(volumeList == undefined) return
+  console.log("Set " + name + " volume to: " + volume);
+  document.querySelector("audio").volume = volume / 100;
 }
 
 function checkIfSliderIsPresent(node) {
