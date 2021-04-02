@@ -1,5 +1,7 @@
 console.log("BBB identified!");
 
+var container;
+
 var observer = new MutationObserver(function (mutations) {
   if (
     getElementByXpath(
@@ -9,11 +11,7 @@ var observer = new MutationObserver(function (mutations) {
     var menuBarDiv = getElementByXpath(
       "/html/body/div/main/section/div[1]/section[2]/div/div[2]"
     );
-
-    var dropDown = getElementByXpath(
-      "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div/div[3]/div/div[2]/div/ul"
-    );
-    var container = getElementByXpath(
+    container = getElementByXpath(
       "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div"
     );
 
@@ -22,6 +20,7 @@ var observer = new MutationObserver(function (mutations) {
     injectVolumeSlider(menuBarDiv);
     injectVolumeSlidersDropDown(container);
 
+    observerUserList(container);
     observer.disconnect();
   }
 });
@@ -31,24 +30,51 @@ observer.observe(document.body, {
   subtree: true,
 });
 
+function observerUserList(container) {
+  var userListOberserver = new MutationObserver(function (mutations) {
+    userListOberserver.disconnect();
+    injectVolumeSlidersDropDown(container);
+    observerUserList(container);
+  });
+
+  userListOberserver.observe(container, {
+    childList: true,
+    subtree: true,
+  });
+}
+
+function checkIfSliderIsPresent(node) {
+  let presnet = false;
+  node.childNodes.forEach(function (item) {
+    if (item.id === "userVolumeSlider") {
+      presnet = true;
+    }
+  });
+  return presnet;
+}
+
 function injectVolumeSlidersDropDown(target) {
   var dorpodwnPostfix = "]/div/div[2]/div/ul";
   var dropDownPrefix =
     "/html/body/div/main/section/div[2]/div/div/div/div[3]/div[2]/div/div/div[";
 
   for (i = 1; i <= target.childNodes.length; i++) {
+    let query = dropDownPrefix + i + dorpodwnPostfix;
+    let el = getElementByXpath(query);
+
+    if (checkIfSliderIsPresent(el)) {
+      continue;
+    }
+
     var slider = document.createElement("INPUT");
     slider.min = 0;
     slider.max = 100;
     slider.value = 100;
     slider.type = "range";
-
     var liElement = document.createElement("LI");
+    liElement.id = "userVolumeSlider";
     liElement.appendChild(slider);
-    let query = dropDownPrefix + i + dorpodwnPostfix;
 
-    let el = getElementByXpath(query);
-    console.log(el);
     el.appendChild(liElement);
   }
 }
